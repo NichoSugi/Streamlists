@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import RobustScaler
 
 # Load the machine learning model and encode
 model = joblib.load('XG-class.pkl')
@@ -33,11 +34,14 @@ def main():
     df=pd.DataFrame([list(data.values())], columns=['Age','Gender',  
                                                 'CreditScore', 'Tenure','Balance', 
                                                 'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary'])
+    
+    scaler = RobustScaler()
 
     df=df.replace(gender_encode)
     df=df.replace(cr_card_encode)
     df=df.replace(act_member_encode)
 
+    df = scaler.fit_transform(df)
     
     if st.button('Make Prediction'):
         features=df      
