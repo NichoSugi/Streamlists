@@ -35,18 +35,12 @@ def main():
             'CreditScore':int(CreditScore),
             'Tenure': int(Tenure), 'Balance':int(Balance),
             'NumOfProducts': NumOfProducts, 'HasCrCard': HasCrCard,
-            'IsActiveMember':IsActiveMember,'EstimatedSalary':int(EstimatedSalary),
-            'Geography_France': geography_encoded[0],
-            'Geography_Spain': geography_encoded[1],
-            'Geography_Germany': geography_encoded[2]}
+            'IsActiveMember':IsActiveMember,'EstimatedSalary':int(EstimatedSalary)}
 
     
     df=pd.DataFrame([list(data.values())], columns=['CreditScore','Gender',  
                                                 'Age', 'Tenure','Balance', 
-                                                'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary',
-                                                'Geography_France',
-                                                'Geography_Spain',
-                                                'Geography_Germany'])
+                                                'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary',])
     
     scaler = RobustScaler()
 
