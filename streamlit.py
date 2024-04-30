@@ -44,9 +44,9 @@ def main():
     df=pd.DataFrame([list(data.values())], columns=['CreditScore','Gender',  
                                                 'Age', 'Tenure','Balance', 
                                                 'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary',
-                                                'Geography_France': geography_encoded[0],
-                                                'Geography_Spain': geography_encoded[1],
-                                                'Geography_Germany': geography_encoded[2]])
+                                                'Geography_France',
+                                                'Geography_Spain',
+                                                'Geography_Germany'])
     
     scaler = RobustScaler()
 
