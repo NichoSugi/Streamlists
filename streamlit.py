@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import OneHotEncoder
 
 # Load the machine learning model and encode
 model = joblib.load('XG-class.pkl')
@@ -14,8 +15,8 @@ act_member_encode = joblib.load('act_member_encode.pkl')
 def main():
     st.title('Churn Model Deployment')
     
-    HasCrCard = st.text_input("Surname: ")
-    HasCrCard = st.radio("Geography: ", ["France","Germany", 'Spain'])
+    Surname = st.text_input("Surname: ")
+    Geography = st.radio("Geography: ", ["France","Germany", 'Spain'])
     CreditScore = st.number_input("Credit Score :", 300,900)
     Age = st.number_input("Input Age", 0, 100)
     Gender = st.radio("Input Gender : ", ["Male","Female"])
@@ -27,7 +28,7 @@ def main():
     EstimatedSalary = st.number_input("Estimated Salary :")
 
     
-    data = {'CreditScore':int(CreditScore),
+    data = {'Geography': Geography , 'CreditScore':int(CreditScore),
             'Gender': Gender, 'Age': int(Age), 
             'Tenure': int(Tenure), 'Balance': Balance,
             'NumOfProducts': int(NumOfProducts), 'HasCrCard': HasCrCard,
@@ -41,9 +42,21 @@ def main():
 
     df=df.replace(gender_encode)
     df=df.replace(cr_card_encode)
-    df=df.replace(act_member_encode)
+    df=df.replace(act_member_encode)   
 
-    #df = scaler.fit_transform(df)
+
+    geo_enc = df[['Geography']]
+
+    train_encoded_geo = OneHotEncoder()
+
+    geo_enc = pd.DataFrame(train_encoded_geo.fit_transform(geo_enc).toarray(),columns=train_encoded_geo.get_feature_names_out())
+
+    df = df.reset_index()
+
+    df = pd.concat([df,geo_enc], axis=1)
+    df = df.drop(['Geography'], axis=1)
+
+    df = scaler.fit_transform(df)
     
     if st.button('Make Prediction'):
         features=df      
