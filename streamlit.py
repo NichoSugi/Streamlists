@@ -14,6 +14,8 @@ act_member_encode = joblib.load('act_member_encode.pkl')
 def main():
     st.title('Churn Model Deployment')
     
+    HasCrCard = st.text_input("Surname: ")
+    HasCrCard = st.radio("Geography: ", ["France","Germany", 'Spain'])
     CreditScore = st.number_input("Credit Score :", 300,900)
     Age = st.number_input("Input Age", 0, 100)
     Gender = st.radio("Input Gender : ", ["Male","Female"])
