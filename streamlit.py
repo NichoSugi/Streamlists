@@ -27,14 +27,14 @@ def main():
     EstimatedSalary = st.number_input("Estimated Salary :")
 
     
-    data = {'Age': int(Age), 'Gender': Gender, 
-            'CreditScore':int(CreditScore),
+    data = {'CreditScore':int(CreditScore),
+            'Gender': Gender, 'Age': int(Age), 
             'Tenure': int(Tenure), 'Balance': Balance,
             'NumOfProducts': int(NumOfProducts), 'HasCrCard': HasCrCard,
             'IsActiveMember':IsActiveMember,'EstimatedSalary': EstimatedSalary}
     
-    df=pd.DataFrame([list(data.values())], columns=['Age','Gender',  
-                                                'CreditScore', 'Tenure','Balance', 
+    df=pd.DataFrame([list(data.values())], columns=['CreditScore','Gender',  
+                                                'Age', 'Tenure','Balance', 
                                                 'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary'])
     
     scaler = RobustScaler()
