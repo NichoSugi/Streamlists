@@ -27,16 +27,26 @@ def main():
     IsActiveMember = st.radio("I am an Active Member : ", ["Yes","No"])
     EstimatedSalary = st.number_input("Estimated Salary :")
 
+    geography_encoding = {'France': [0, 0, 1], 'Spain': [0, 1, 0], 'Germany': [1, 0, 0]}
+    geography_encoded = geography_encoding[Geography]
+
     
-    data = {'Geography': Geography , 'CreditScore':int(CreditScore),
-            'Gender': Gender, 'Age': int(Age), 
-            'Tenure': int(Tenure), 'Balance': Balance,
-            'NumOfProducts': int(NumOfProducts), 'HasCrCard': HasCrCard,
-            'IsActiveMember':IsActiveMember,'EstimatedSalary': EstimatedSalary}
+    data = {'Age': int(Age), 'Gender': Gender, 
+            'CreditScore':int(CreditScore),
+            'Tenure': int(Tenure), 'Balance':int(Balance),
+            'NumOfProducts': NumOfProducts, 'HasCrCard': HasCrCard,
+            'IsActiveMember':IsActiveMember,'EstimatedSalary':int(EstimatedSalary),
+            'Geography_France': geography_encoded[0],
+            'Geography_Spain': geography_encoded[1],
+            'Geography_Germany': geography_encoded[2]}
+
     
     df=pd.DataFrame([list(data.values())], columns=['CreditScore','Gender',  
                                                 'Age', 'Tenure','Balance', 
-                                                'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary'])
+                                                'NumOfProducts', 'HasCrCard' ,'IsActiveMember', 'EstimatedSalary',
+                                                'Geography_France': geography_encoded[0],
+                                                'Geography_Spain': geography_encoded[1],
+                                                'Geography_Germany': geography_encoded[2]])
     
     scaler = RobustScaler()
 
@@ -44,19 +54,6 @@ def main():
     df=df.replace(cr_card_encode)
     df=df.replace(act_member_encode)   
 
-
-    geo_enc = df[['Geography']]
-
-    train_encoded_geo = OneHotEncoder()
-
-    geo_enc = pd.DataFrame(train_encoded_geo.fit_transform(geo_enc).toarray(),columns=train_encoded_geo.get_feature_names_out())
-
-    df = df.reset_index()
-
-    df = pd.concat([df,geo_enc], axis=1)
-    df = df.drop(['Geography'], axis=1)
-
-    df = scaler.fit_transform(df)
     
     if st.button('Make Prediction'):
         features=df      
