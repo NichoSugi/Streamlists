@@ -54,6 +54,7 @@ def main():
     df=df.replace(cr_card_encode)
     df=df.replace(act_member_encode)   
 
+    df = scaler.fit_transform(df)
     
     if st.button('Make Prediction'):
         features=df      
