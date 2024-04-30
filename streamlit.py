@@ -29,9 +29,9 @@ def main():
     
     data = {'Age': int(Age), 'Gender': Gender, 
             'CreditScore':int(CreditScore),
-            'Tenure': int(Tenure), 'Balance':int(Balance),
-            'NumOfProducts': NumOfProducts, 'HasCrCard': HasCrCard,
-            'IsActiveMember':IsActiveMember,'EstimatedSalary':int(EstimatedSalary)}
+            'Tenure': int(Tenure), 'Balance': Balance,
+            'NumOfProducts': int(NumOfProducts), 'HasCrCard': HasCrCard,
+            'IsActiveMember':IsActiveMember,'EstimatedSalary': EstimatedSalary}
     
     df=pd.DataFrame([list(data.values())], columns=['Age','Gender',  
                                                 'CreditScore', 'Tenure','Balance', 
